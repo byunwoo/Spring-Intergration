@@ -10,7 +10,12 @@
   
 	<repositories>
 	
-   		<repository><!-- 몽고DB용 리파지토리 -->
+   		<repository>
+   			<!-- 
+   				몽고DB용 리파지토리
+   				현재 시간 2012-04-24 몽고DB의 보안이슈가 뜨거운 감자로 논의 중....
+   				흥미진진하다 
+   			-->
 		    <id>spring-milestone</id>
 		    <name>Spring Maven MILESTONE Repository</name>
 		    <url>http://maven.springframework.org/milestone</url>
