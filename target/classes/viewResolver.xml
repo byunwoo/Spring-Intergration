@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- 
+		Spring3.0부터 ContentNegotiatingViewResolver를 사용하도록 하자 스스로도.
+		
+		ContentNegotiatingViewResolver는 기본적으로 WebAppliactionContext에 등록된 ViewResolver들을
+		찾아서 처리하지만 명시적으로 viewResolvers속성에 기술하도록 하자.
+		viewResolvers속성은 리스트 속성으로 상위에 기술할 수록 우선탐색한다. 당연하지만...
+		
+		ViewResolver 구현클래스
+		1. InternalResourceViewResolver(UrlBasedViewResolver를 확장)
+		 - 뷰 이름으로부터 JSP나 Tiles 연동을 위한 View 객체를 리턴.
+		2. VelocityViewResolver
+		 - 뷰 이름으로부터 Velocity 연동을 위한 View 객체를 리턴.
+		3. BeanNameViewResolver
+		 - 뷰 이름과 동일한 이름을 갖는 빈 객체를 View 객체로 사용
+		4. ResourceBundleViewResolver
+		 - 뷰 이름과 View 객체간의 매핑정보를 저장하기 위해 자원파일을 사용
+		5. XmlViewResolver
+		 - 뷰 이름과 View 객체간의 매핑정보를 저장하기 위해 XML파일을 사용
+		 
+		※ InternalResourceViewResolver는 항상 뷰이름에 매핑되는 뷰객체를 리턴한다 즉 null 이 없고 항상 값을 리턴한다.
+		  그러니까 InternalResourceViewResolver는 우선순위를 가장 나중에 두는게 좋다.
+	 -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver" >
+        <property name="mediaTypes">
+            <map>
+                <entry key="atom" value="application/atom+xml"/>
+                <entry key="html" value="text/html"/>
+                <entry key="json" value="application/json"/>
+                <entry key="xml" value="application/xml"/>
+            </map>
+        </property>
+        <property name="viewResolvers">
+            <list>
+            	<ref bean="beanNameViewResolver"/>
+            	<ref bean="xmlViewResolver"/>
+                <ref bean="internalResourceViewResolver"/>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <ref bean="jsonView"/>
+                <ref bean="xmlView"/>
+            </list>
+        </property> 
+	</bean>
+	
+	<!-- View Resolver -->
+	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	</bean>
+	
+	<bean id="xmlViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location" value="/WEB-INF/view/xmlViewResolver/views.xml"/>
+		<!-- location 지정안하면 default 는 /WEB-INF/views.xml -->
+	</bean>
+	
+	<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+		<property name="prefix" value="/WEB-INF/view/internalResourceViewResolver/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<!-- View Resolver -->
+	
+	<!-- View -->
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">
+    </bean>
+ 
+    <bean id="xmlView" class="org.springframework.web.servlet.view.xml.MarshallingView">
+        <property name="marshaller">
+            <bean class="org.springframework.oxm.xstream.XStreamMarshaller">
+                <property name="autodetectAnnotations" value="true" />
+            </bean>
+        </property>
+    </bean>
+    <!-- View -->
+
+	<!-- 
+		세가지의 메세지 변환기를 등록한다.
+		<mvc:annotation-driven />을 spring-servlet.xml에서 선언함으로써 자동 선언 되었다.
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonConverter" />
+				<ref bean="marshallingConverter" />
+				<ref bean="atomConverter" /> 
+			</list>
+		</property>
+	</bean>
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes" value="application/json" />
+	</bean>
+	-->
+</beans>

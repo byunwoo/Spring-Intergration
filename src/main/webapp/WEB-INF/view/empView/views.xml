@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	
+	<bean name="empList" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url"><value>/WEB-INF/view/empView/list.jsp</value></property>
+		<property name="attributesMap">
+			<map>
+				<entry key="title"><value>Emp List - MyBatis 이용</value></entry>
+			</map>
+		</property>
+	</bean>
+	
+	<bean name="getEmp" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url"><value>/WEB-INF/view/empView/view.jsp</value></property>
+		<property name="attributesMap">
+			<map>
+				<entry key="title"><value>Emp View - Jpa 이용</value></entry>
+			</map>
+		</property>
+	</bean>
+	
+</beans>

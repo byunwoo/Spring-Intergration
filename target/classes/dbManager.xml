@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	   xmlns:hdp="http://www.springframework.org/schema/hadoop"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		   				   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+		   				   http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+						   http://www.springframework.org/schema/hadoop http://www.springframework.org/schema/hadoop/spring-hadoop.xsd
+						   http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!-- JNDI 로 datasource를 받아오는 경우 
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="${jdbc.datasource}"/>
+	    <property name="resourceRef" value="true" />
+	</bean>
+	-->
+	
+	<context:property-placeholder location="classpath:properties/db.properties"/>
+	
+	<util:properties id="dbProp" location="classpath:properties/db.properties"/>
+	<!-- 이렇게 하면 자바에서도 프로퍼티에 한큐에 접근한다. 
+	ex) 
+		@Value("#{dbProp.jdbc.driver}")
+		private String driverClassName;
+		혹은
+		@Value("#{dbProp}")
+		private Dbproperies dbProp;
+	
+	또 SPEL을 사용함으로써 JSP에서도 한큐에 등록한 프로퍼티를 참조 가능하다.
+	ex) <spring:eval expression="@dbProp['jdbc.driver']" /> 
+	-->
+	
+	<bean id="dataSourceByContext-property-placeholder" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+	
+	<bean id="dataSourceByUtil-properties" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="#{dbProp['jdbc.driver']}"/>
+		<property name="url" value="#{dbProp['jdbc.url']}"/>
+		<property name="username" value="#{dbProp['jdbc.username']}"/>
+		<property name="password" value="#{dbProp['jdbc.password']}"/>
+	</bean>
+	
+	<!-- JPA -->
+	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
+	<!-- <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.OpenJpaDialect"/> -->
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">  
+         <!-- LocalContainerEntityManagerFactoryBean으로 사용함으로써 persistence.xml에 설정을 일임한다. -->
+         <!--
+         	Jpa에 BasicDataSource는 지원하지 않는다.
+         	<property name="dataSource" ref="dataSource" /> 
+         -->  
+         
+         <property name="jpaVendorAdapter">  
+             <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">  
+             <!-- <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter"> -->
+                 <property name="showSql" value="true" />  
+                 <property name="database" value="ORACLE" />  
+             </bean>  
+         </property>  
+         <property name="persistenceUnitName" value="Spring-Jpa" />
+         <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
+         <property name="jpaDialect" ref="jpaDialect"/>
+         
+         <property name="loadTimeWeaver">
+		 	<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+		 </property>
+		 <!-- 전역적으로 사용하려면 
+		 <context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+		  -->		         
+    </bean>  
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
+         <property name="entityManagerFactory" ref="entityManagerFactory" />  
+    </bean> 
+     
+    <!-- MyBatis -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		 <property name="dataSource" ref="dataSourceByUtil-properties" />
+		 <property name="configLocation" value="classpath:mybatis-config.xml"/>
+	</bean>
+
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		 <constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	 
+	<!-- MongoDb -->
+	<mongo:mongo port="27017" host="localhost"/>
+	<!-- 
+	 	몽고디비는 디폴트 설치후에 개나소나 접근...
+	 	막기 위해 설치후 db.auth 허가된 사용자만 등록하고 계정을 사용해서 접근토록해야 보안.. 당연히
+	-->
+	<bean id="mongoUserCridential" class="org.springframework.data.authentication.UserCredentials">
+	 	<constructor-arg name="username" value="mongoTester"/>
+	 	<constructor-arg name="password" value="1234"/>
+	</bean>
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg ref="mongo" />
+		<constructor-arg name="databaseName" value="mongoTest" />
+		<constructor-arg name="userCredentials" ref="mongoUserCridential" />
+	</bean>	
+	 
+	<!-- 하둡 
+	<hdp:configuration />
+	
+	<hdp:job id="mr-job" input-path="/input/" output-path="/ouput/"
+		mapper="org.apache.hadoop.examples.WordCount.TokenizerMapper"
+		reducer="org.apache.hadoop.examples.WordCount.IntSumReducer"
+	/>
+	-->
+</beans>

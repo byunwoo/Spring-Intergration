@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+	<display-name>Spring</display-name>
+	
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<!-- 이 리스너 등록하면 디폴트로 WEB-INF/applicationContext.xml 이걸 찾아 헤맨다... -->
+	</listener>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring-servlet.xml</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<servlet-name>spring3.0</servlet-name>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>spring3.0</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/application-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>spring3.0</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 와스별 디폴트 서블릿의 목적은 모든 매핑을 투과하는 정적 리소스의 처리이다. -->
+	<servlet-mapping> 
+		<servlet-name>default</servlet-name> 
+		<url-pattern>*.js</url-pattern> 
+		<url-pattern>*.gif</url-pattern> 
+		<url-pattern>*.jpg</url-pattern> 
+		<url-pattern>*.png</url-pattern> 
+		<url-pattern>*.css</url-pattern> 
+		<url-pattern>*.ico</url-pattern> 
+	</servlet-mapping>
+	
+	
+	<jsp-config>
+        <taglib>
+            <taglib-uri>http://java.sun.com/jsp/jstl/core</taglib-uri>
+            <taglib-location>/WEB-INF/tld/c.tld</taglib-location>
+        </taglib>
+        <taglib>
+            <taglib-uri>http://java.sun.com/jsp/jstl/functions</taglib-uri>
+            <taglib-location>/WEB-INF/tld/fn.tld</taglib-location>
+        </taglib>
+        <jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<el-ignored>false</el-ignored>
+			<page-encoding>UTF-8</page-encoding>
+			<scripting-invalid>false</scripting-invalid>
+			<include-prelude>/WEB-INF/view/common/config.jsp<!-- 각페이지 헤더형식으로 include할 파일 --></include-prelude>
+			<include-coda><!-- 각페이지 푸터형식으로 include할 파일 --></include-coda> 
+		</jsp-property-group>
+		<!-- 여기서 주목해 받고 싶은 것은,
+		<url-pattern> 요소와 <include-prelude> 요소입니다. 
+		<url-pattern> 요소는, <jsp-property-group> 
+		요소로 정의된 일련의 파라미터를 적용하는 범위를 특정합니다. 여기에서는 「*. jsp」라고 하고 있기 때문에,
+		어플리케이션 부하의 전 「. jsp」파일에 대해서 파라미터를 적용합니다. 
+		<include-prelude> 요소에는, 각 JSP 페이지의 읽어들여에 앞서 불려 가는 헤더 파일을 지정합니다. 여기에서는, 헤더 파일
+		header.jsp로, 일련의@taglib 지시문을 지정하는 것으로, 모든 「. jsp」페이지로 JSTL를 이용할 수
+		있도록(듯이) 설정해 있습니다. 물론, 그 밖에도 추가로 다른 태그 라이브러리를 이용하고 싶은 경우에는, @taglib
+		지시문을 적당 추가하면 좋을 것입니다 -->
+    </jsp-config>
+    
+	<!-- jsp 파일 URL접근에 대한 차단 
+	<security-constraint>
+  		<display-name>JSP Protection</display-name>
+  		<web-resource-collection>
+    		<web-resource-name>SecureJSPPages</web-resource-name>
+      		<url-pattern>*.jsp</url-pattern>
+  		</web-resource-collection>
+  		<auth-constraint>
+    		<role-name>nobody</role-name>
+  		</auth-constraint>
+	</security-constraint>
+	<security-role>
+		<description>
+			Nobody should be in this role so JSP files are protected
+			from direct access.
+		</description>
+		<role-name>nobody</role-name>
+	</security-role>
+	-->
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

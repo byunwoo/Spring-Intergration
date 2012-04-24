@@ -1,0 +1,189 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>spring.study.springtest</groupId>
+  <artifactId>Spring_Maven</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Spring_Maven Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+	<repositories>
+	
+   		<repository><!-- 몽고DB용 리파지토리 -->
+		    <id>spring-milestone</id>
+		    <name>Spring Maven MILESTONE Repository</name>
+		    <url>http://maven.springframework.org/milestone</url>
+		</repository>
+		<!--
+		<repository> 하둡용 리파지토리 
+			<id>spring-snapshot</id>
+			<name>Spring Maven SNAPSHOT Repository</name>
+			<url>http://s3.amazonaws.com/maven.springframework.org/snapshot</url>
+		</repository>
+		-->
+   	</repositories> 
+   	
+   	
+   	  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-core</artifactId>
+    	<version>3.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-context</artifactId>
+    	<version>3.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-beans</artifactId>
+    	<version>3.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-web</artifactId>
+    	<version>3.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-webmvc</artifactId>
+    	<version>3.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.kenai.nbpwr</groupId>
+    	<artifactId>org-apache-commons-dbcp</artifactId>
+    	<version>1.2.2-201002241055</version>
+    	<type>nbm</type>
+    </dependency>
+    <dependency>
+    	<groupId>org.codehaus.jackson</groupId>
+    	<artifactId>jackson-mapper-asl</artifactId>
+    	<version>1.9.2</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-oxm</artifactId>
+    	<version>3.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>com.thoughtworks.xstream</groupId>
+    	<artifactId>xstream</artifactId>
+    	<version>1.3.1</version>
+    </dependency>
+    <dependency>
+    	<groupId>jstl</groupId>
+    	<artifactId>jstl</artifactId>
+    	<version>1.2</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-orm</artifactId>
+    	<version>3.0.6.RELEASE</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.mybatis</groupId>
+    	<artifactId>mybatis-spring</artifactId>
+    	<version>1.0.2</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.eclipse.persistence</groupId>
+    	<artifactId>javax.persistence</artifactId>
+    	<version>2.0.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.mongodb</groupId>
+    	<artifactId>mongo-java-driver</artifactId>
+    	<version>2.7.2</version>
+    </dependency>
+    <dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-mongodb</artifactId>
+		<version>1.0.0.RC1</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework.mobile</groupId>
+		<artifactId>spring-mobile-device</artifactId>
+		<version>1.0.0.M3</version>
+	</dependency> 
+	<!--
+	<dependency>
+		<groupId>org.springframework.amqp</groupId>
+		<artifactId>spring-amqp</artifactId>
+		<version>1.0.0.RELEASE</version>
+	</dependency> 
+	<dependency>
+		<groupId>org.springframework.data</groupId>
+		<artifactId>spring-data-hadoop</artifactId>
+		<version>1.0.0.BUILD-SNAPSHOT</version>
+	</dependency>  -->
+	
+	<!-- Spring Security -->
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-core</artifactId>
+	    <version>3.1.0.RELEASE</version>
+	</dependency> 
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-web</artifactId>
+	    <version>3.1.0.RELEASE</version>
+	</dependency> 
+	<dependency>
+	    <groupId>org.springframework.security</groupId>
+	    <artifactId>spring-security-config</artifactId>
+	    <version>3.1.0.RELEASE</version>
+	</dependency>
+	
+	<!-- Spring Security OAuth -->
+	<dependency>
+		<groupId>org.springframework.security.oauth</groupId>
+		<artifactId>spring-security-oauth</artifactId>
+		<version>1.0.0.M4</version>
+	</dependency> 
+	
+	<dependency>
+		<groupId>joda-time</groupId>
+		<artifactId>joda-time</artifactId>
+		<version>2.0</version>
+	</dependency>
+	
+	<!--
+	비 ejb컨테이너의 xa타입 드라이버 클래스 설정을 지원하는 용도 이다. 
+	<dependency>
+		<groupId>org.mortbay.jetty</groupId>
+		<artifactId>jetty-atomikos</artifactId>
+		<version>8.1.0.RC2</version>
+		<type>pom</type>
+	</dependency> 
+	-->
+
+	<dependency>
+		<groupId>org.springframework.amqp</groupId>
+		<artifactId>spring-amqp</artifactId>
+		<version>1.0.0.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.amqp</groupId>
+		<artifactId>spring-rabbit</artifactId>
+		<version>1.0.0.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>cglib</groupId>
+		<artifactId>cglib</artifactId>
+		<version>2.2.2</version>
+	</dependency>
+  </dependencies>
+  <build>
+    <finalName>Spring_Maven</finalName>
+  </build>
+</project>

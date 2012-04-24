@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sec="http://www.springframework.org/schema/security"  
+	xmlns:oauth="http://www.springframework.org/schema/security/oauth"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+              http://www.springframework.org/schema/security/oauth http://www.springframework.org/schema/security/spring-security-oauth.xsd">
+
+	<!-- 
+		Spring Security 
+		use-expressions="true" 속성으로 hasRole('ROLE_USER') 설정이 가능해 진다.
+	-->
+	<sec:http auto-config="true"  access-denied-page="/error/403.jsp">
+		<!-- 요 부분이 spring security url보안의 핵심이다. -->
+		<!-- <sec:intercept-url pattern="/index.jsp" access="hasRole('ROLE_ADMIN')"/>  -->
+		<sec:intercept-url pattern="/*" access="ROLE_ADMIN,ROLE_USER"/>
+		<!-- <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/> -->
+		<sec:intercept-url pattern="/login/login.jsp" access="ROLE_ANONYMOUS" />
+		
+		<sec:intercept-url pattern="/admin/admin.jsp" access="ROLE_ADMIN" />
+		<!-- 
+			별도의 로그인 페이지를 지정하지 않는다면 기본적으로 spring security에서 제공하는 로그인화면(후짐)이 보여진다
+			당연히 별도 로그인 화면을 지정해야 할것이며 login-page="/로그인화면.jsp" 속성에 값을 할당 함으로서 가능하다.
+			이경우 할당한 로그인 경로는 모두 접근 가능해야 하므로 url인터셉트에 주의해야할 것이다.
+			<sec:intercept-url pattern="/로그인화면.jsp" filters='none' /> 이런식으로...
+		 -->
+		<sec:form-login 
+			login-page="/login/login.jsp"
+			authentication-failure-handler-ref="authFailHandler"
+			authentication-success-handler-ref="authSuccessHandler" 
+		/>
+		
+		<!-- 
+			커스텀 필터 등록은 아래와 같이 한다
+			
+				Alias 							Filter Class Namespace 									Element or Attribute 
+			======================================================================================================================
+			CHANNEL_FILTER 					  ChannelProcessingFilter 						http/intercept-url@requires-channel 
+			CONCURRENT_SESSION_FILTER 		  ConcurrentSessionFilter  						session-management/concurrency-control 
+			SECURITY_CONTEXT_FILTER 		  SecurityContextPersistenceFilter 								http 
+			LOGOUT_FILTER  					  LogoutFilter 												http/logout 
+			X509_FILTER  					  X509AuthenticationFilter 									  http/x509 
+			PRE_AUTH_FILTER  				  AstractPreAuthenticatedProcessingFilter 					Subclasses N/A 
+			CAS_FILTER  					  CasAuthenticationFilter 										N/A 
+			FORM_LOGIN_FILTER  				  UsernamePasswordAuthenticationFilter 						http/form-login 
+			BASIC_AUTH_FILTER  				  BasicAuthenticationFilter 									http/http-basic 
+			SERVLET_API_SUPPORT_FILTER 		  SecurityContextHolderAwareFilter 					http/@servlet-api-provision 
+			REMEMBER_ME_FILTER  			  RememberMeAuthenticationFilter 							http/remember-me 
+			ANONYMOUS_FILTER  				  AnonymousAuthenticationFilter 							http/anonymous 
+			SESSION_MANAGEMENT_FILTER 		  SessionManagementFilter 								  session-management 
+			EXCEPTION_TRANSLATION_FILTER  	  ExceptionTranslationFilter 									http 
+			FILTER_SECURITY_INTERCEPTOR  	  FilterSecurityInterceptor 									http 
+			SWITCH_USER_FILTER  			  SwitchUserFilter 												N/A 
+						
+		
+		<sec:custom-filter position="FORM_LOGIN_FILTER" ref="authenticationFilter" />
+		-->
+		<sec:logout delete-cookies="true" logout-success-url="/login/login.jsp" invalidate-session="true" />
+    	<sec:remember-me key="moovaSecureRMKey" user-service-ref="userService" />
+	</sec:http>
+
+	<sec:authentication-manager>
+		<sec:authentication-provider user-service-ref="userService">
+		<!-- 이 설정을 자바로 옮겼다
+			<sec:user-service>
+				<sec:user name="user" password="user" authorities="ROLE_USER"/>
+			</sec:user-service>
+		-->
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+	
+	<!-- 성공시 핸들러등록 사용이 가능하다 spring3이후 -->
+	<bean id="authSuccessHandler" class="springframework.security.handler.AuthSuccessHandler">
+		<property name="defaultTargetUrl" value="/index.jsp" />
+		<property name="alwaysUseDefaultTargetUrl" value="true" />
+	</bean>
+	<bean id="authFailHandler" class="springframework.security.handler.AuthFailHandler">
+		<property name="defaultFailureUrl" value="/login/login.jsp" />
+	</bean>
+	
+	
+
+	<bean id="userService" class="springframework.security.userdetails.MyUserDetailsService"></bean>
+	
+	<!-- Spring OAuth
+	<oauth:consumer resource-details-service-ref="resourceDetails" oauth-failure-page="/oauth_error.jsp">
+		<oauth:url pattern="/myProviderPhotos.do" resources="providerPhotos"/>
+	</oauth:consumer>
+	
+	<oauth:resource-details-service id="resourceDetails">
+		<oauth:resource id="providerPhotos"
+		                key="my-consumer-key"
+		                secret="my-consumer-secret"
+		                request-token-url="http://localhost:8080/provider/oauth/request_token"
+		                user-authorization-url="http://localhost:8080/provider/oauth/confirm_access.do"
+		                access-token-url="http://localhost:8080/provider/oauth/access_token"/>
+	</oauth:resource-details-service>
+
+	<bean id="restTemplate" class="org.springframework.security.oauth.consumer.OAuthRestTemplate">
+		<constructor-arg ref="providerPhotos"/>
+	</bean>
+ 	-->
+</beans>

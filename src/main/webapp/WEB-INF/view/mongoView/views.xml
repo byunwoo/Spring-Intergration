@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+	<bean name="mongoTest" class="org.springframework.web.servlet.view.JstlView">
+		<property name="url"><value>/WEB-INF/view/mongoView/view.jsp</value></property>
+		<property name="attributesMap">
+			<map>
+				<entry key="title"><value>몽고 컬렉션</value></entry>
+			</map>
+		</property>
+	</bean>
+	
+</beans>

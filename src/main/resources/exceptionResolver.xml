@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 
+		Spring MVC는 Controller 내에서 발생하는 에러 처리를 지원하기 위하여 ExceptionResolver를 두고 있다.
+	 -->
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	    <property name="exceptionMappings">
+	        <props>
+	            <prop key="springframework.controller.TestController">TestControllerException</prop>
+	         </props>
+	    </property>
+	    <property name="exceptionAttribute" value="sampleException" />
+	    <property name="defaultErrorView" value="error" />
+	</bean>
+
+</beans>
