@@ -9,6 +9,7 @@
 	
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+		<!-- 이 리스너 등록하면 디폴트로 WEB-INF/applicationContext.xml 이걸 찾아 헤맨다... -->
 	</listener>
 	
 	<!-- 컨텍스트 전역적으로 사용할 파람 -->
@@ -76,6 +77,26 @@
 			<include-coda></include-coda>
 		</jsp-property-group>
 	</jsp-config>
+	
+	<!-- jsp 파일 URL접근에 대한 차단 
+	<security-constraint>
+  		<display-name>JSP Protection</display-name>
+  		<web-resource-collection>
+    		<web-resource-name>SecureJSPPages</web-resource-name>
+      		<url-pattern>*.jsp</url-pattern>
+  		</web-resource-collection>
+  		<auth-constraint>
+    		<role-name>nobody</role-name>
+  		</auth-constraint>
+	</security-constraint>
+	<security-role>
+		<description>
+			Nobody should be in this role so JSP files are protected
+			from direct access.
+		</description>
+		<role-name>nobody</role-name>
+	</security-role>
+	-->
 	
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
