@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>spring.study.springtest</groupId>
   <artifactId>Spring_Maven</artifactId>
@@ -9,13 +10,19 @@
   <url>http://maven.apache.org</url>
   
 	<repositories>
-	
+		
+		<!-- 오라클과 메이븐의 라이센스 정책으로 리포지토리 지정없이 JDBC 디펜던시 불가 -->
+		<repository>
+			<id>mesir-repo</id>
+			<url>http://mesir.googlecode.com/svn/trunk/mavenrepo</url> 
+		</repository>
+		
    		<repository>
-   			<!-- 
+   			<!-- 	
    				몽고DB용 리파지토리
    				현재 시간 2012-04-24 몽고DB의 보안이슈가 뜨거운 감자로 논의 중....
    				흥미진진하다 
-   			-->
+   			 -->
 		    <id>spring-milestone</id>
 		    <name>Spring Maven MILESTONE Repository</name>
 		    <url>http://maven.springframework.org/milestone</url>
@@ -29,15 +36,81 @@
 		-->
    	</repositories> 
    	
-   	
+<build>
+	<finalName>Spring_Maven</finalName>
+  	<plugins>
+  		<!-- 
+  		<plugin> 
+			<groupId>org.mortbay.jetty</groupId> 
+			<artifactId>jetty-maven-plugin</artifactId> 
+			<version>7.2.2.v20101205</version> 
+			<configuration> 
+			    <scanIntervalSeconds>10</scanIntervalSeconds> 
+			    <reload>automatic</reload> 
+			    <reload>manual</reload>
+			</configuration> 
+		</plugin>
+		--> 
+		
+		<plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <configuration>
+        	<reload>manual</reload>
+        	<contextPath>/</contextPath>
+          <!-- http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin -->
+          	<scanIntervalSeconds>10</scanIntervalSeconds>
+          	<connectors>
+            	<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+	              	<port>8080</port>
+	              	<maxIdleTime>60000</maxIdleTime>
+            	</connector>
+          	</connectors>
+          <stopKey>foo</stopKey>
+          <stopPort>9999</stopPort>
+        </configuration>
+      </plugin>
+		 
+  		<!-- <plugin>
+	  		<groupId>org.mortbay.jetty</groupId>
+	        <artifactId>maven-jetty-plugin</artifactId>
+	        <version>6.1.26</version>
+	        <configuration>
+	            <contextPath>/</contextPath>
+	            포트를 변경하고 싶은 경우 connectors 설정 이용
+	            <connectors>
+	                <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+	                    <port>8080</port>
+	                    <maxIdleTime>60000</maxIdleTime>
+	                </connector>
+	            </connectors>
+	            <reload>automatic</reload> 
+	            <scanIntervalSeconds>10</scanIntervalSeconds>
+                <stopKey>foo</stopKey>
+                <stopPort>8080</stopPort>
+	        </configuration>
+  		</plugin>  -->
+  		
+  	</plugins>
+</build>
+  
    	  
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+  	<dependency>
+  		<groupId>com.oracle</groupId>
+  		<artifactId>ojdbc14</artifactId>
+  		<version>10.2.0.4.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.eclipse.jetty</groupId>
+  		<artifactId>jetty-servlet</artifactId>
+  		<version>7.0.0.M0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-agent</artifactId>
+  		<version>2.5.6.SEC03</version>
+  	</dependency>
     <dependency>
     	<groupId>org.springframework</groupId>
     	<artifactId>spring-core</artifactId>
@@ -187,8 +260,21 @@
 		<artifactId>cglib</artifactId>
 		<version>2.2.2</version>
 	</dependency>
+	<!-- <dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>3.1-b01</version>
+	</dependency> -->
+	<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-test</artifactId>
+		<version>3.1.2.RELEASE</version>
+	</dependency>
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.10</version>
+	</dependency>
   </dependencies>
-  <build>
-    <finalName>Spring_Maven</finalName>
-  </build>
+  
 </project>

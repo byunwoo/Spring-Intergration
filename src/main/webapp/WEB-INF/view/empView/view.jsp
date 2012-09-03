@@ -60,7 +60,7 @@
 			</table>
 		</li>
 		<li>
-			<a href="/">처음</a>
+			<a href="/index.jsp">처음</a>
 			<a href="/empList">목록</a>
 		</li>
 	</ul>

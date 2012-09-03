@@ -69,13 +69,16 @@
          <property name="jpaDialect" ref="jpaDialect"/>
          
          <property name="loadTimeWeaver">
-		 	<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+		 	<!--<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>-->
+		 	<bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"/>
 		 </property>
-		 <!-- 전역적으로 사용하려면 
-		 <context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
-		  -->		         
+		 
     </bean>  
-
+    
+	<!-- load-time-weaver 전역적으로 사용하려면  
+	<context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+	-->
+	
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
          <property name="entityManagerFactory" ref="entityManagerFactory" />  
     </bean> 

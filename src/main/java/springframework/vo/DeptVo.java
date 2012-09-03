@@ -2,14 +2,12 @@ package springframework.vo;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -32,20 +30,21 @@ public class DeptVo implements Serializable {
 	private String loc;
 	
 	@OneToMany(mappedBy="dept")
-	private Set<EmpVo> emps;
+	@PrimaryKeyJoinColumn 
+	private List<EmpVo> emp;
 
 	/**
 	 * @return the emps
 	 */
-	public Set<EmpVo> getEmps() {
-		return emps;
+	public List<EmpVo> getEmp() {
+		return emp;
 	}
 
 	/**
 	 * @param emps the emps to set
 	 */
-	public void setEmps(Set<EmpVo> emps) {
-		this.emps = emps;
+	public void setEmps(List<EmpVo> emp) {
+		this.emp = emp;
 	}
 
 	/**

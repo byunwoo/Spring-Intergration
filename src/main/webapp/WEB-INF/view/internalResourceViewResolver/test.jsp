@@ -18,7 +18,7 @@
 			클라이언트로부터 util빈으로 등록한 propertie 에서 직접 읽어온 값 : <spring:eval expression="@dbProp['jdbc.driver']" />
 		</li>
 		<li>
-			<a href="/">처음</a>
+			<a href="/index.jsp">처음</a>
 		</li>
 		<li><br><br></li>
 		<li>
