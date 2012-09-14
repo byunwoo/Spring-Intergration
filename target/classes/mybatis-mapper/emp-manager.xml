@@ -5,7 +5,7 @@
 
 	<select id="getList" parameterType="EmpVo" resultType="EmpVo">
 		select *
-		from emp
+		from biz_info
 	</select>
 	
 </mapper>

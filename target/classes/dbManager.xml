@@ -83,12 +83,19 @@
          <property name="entityManagerFactory" ref="entityManagerFactory" />  
     </bean> 
      
-    <!-- MyBatis -->
+    <!-- MyBatis 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		 <property name="dataSource" ref="dataSourceByUtil-properties" />
 		 <property name="configLocation" value="classpath:mybatis-config.xml"/>
-	</bean>
+	</bean>-->
 
+    <bean id="sqlSessionFactory" class="springframework.RefreshableSqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceByUtil-properties" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:mybatis-mapper/emp-manager.xml"/>
+		<property name="interval" value="1000"/>
+	</bean>
+    
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		 <constructor-arg ref="sqlSessionFactory"/>
 	</bean>
