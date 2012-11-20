@@ -163,5 +163,6 @@
 	<import resource="springSecurity.xml"/>
 	
 	<!-- <import resource="exceptionResolver.xml"/> -->
-	
+	<bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" 
+            factory-method="noOpText" />
 </beans>

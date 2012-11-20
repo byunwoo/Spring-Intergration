@@ -19,8 +19,8 @@ public class EmpController {
 
 	@Autowired
 	EmpService empService;
-	@Autowired
-	EmpJpaService empJpaService;
+//	@Autowired
+//	EmpJpaService empJpaService;
 	
 	@RequestMapping("/empList")
 	public ModelAndView list(){
@@ -44,7 +44,7 @@ public class EmpController {
 		empVo.setEmpNo(emp_no);
 		
 		mv.setViewName("getEmp");
-		mv.addObject("emp", empJpaService.getEmp(empVo));
+//		mv.addObject("emp", empJpaService.getEmp(empVo));
 		
 		String sampleMessage = "EMP Return~";
 		mv.addObject("sampleMessage", sampleMessage);
@@ -60,7 +60,8 @@ public class EmpController {
 	public @ResponseBody EmpVo getEmp(@PathVariable Integer id) {
 		EmpVo vo = new EmpVo();
 		vo.setEmpNo(id);
-		EmpVo e = empJpaService.getEmp(vo);
+//		EmpVo e = empJpaService.getEmp(vo);
+		EmpVo e = new EmpVo();
 		return e;
 	}
 		

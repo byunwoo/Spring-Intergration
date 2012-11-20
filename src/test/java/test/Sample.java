@@ -1,5 +1,4 @@
 package test;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -84,8 +83,26 @@ public class Sample {
 //        
         
         
-
-
+		/*String bizCds = "B0001,B0002,B0003,B0004,B0005,B0007,B0008,B0009,B0010,B0011,B0012,B0013,B0014,B0015,B0016,B0017,B0018,B0019,B0020,B0021,B0022";
+		
+		String[] bizCd = bizCds.split(",");
+		for(int idx=0; idx < bizCd.length ; idx++){
+			String biz_cd = bizCd[idx];
+			System.err.println("INSERT INTO HYD.COM_BASIC_CODE (CODE_DIV, COM_CD, COM_NM,APP_SDATE, APP_EDATE, PRINT_SEQ, BIZ_CD) VALUES ('EDU_DIV', 'A01'    ,   '고혈압1차교육'       , '20000101', '99991231', 1, '"+biz_cd+"');");
+			System.err.println("INSERT INTO HYD.COM_BASIC_CODE (CODE_DIV, COM_CD, COM_NM,APP_SDATE, APP_EDATE, PRINT_SEQ, BIZ_CD) VALUES ('EDU_DIV', 'A02'    ,   '고혈압2차교육'       , '20000101', '99991231', 2, '"+biz_cd+"');");
+			System.err.println("INSERT INTO HYD.COM_BASIC_CODE (CODE_DIV, COM_CD, COM_NM,APP_SDATE, APP_EDATE, PRINT_SEQ, BIZ_CD) VALUES ('EDU_DIV', 'B01'    ,   '당뇨병1차교육'       , '20000101', '99991231', 3, '"+biz_cd+"');");
+			System.err.println("INSERT INTO HYD.COM_BASIC_CODE (CODE_DIV, COM_CD, COM_NM,APP_SDATE, APP_EDATE, PRINT_SEQ, BIZ_CD) VALUES ('EDU_DIV', 'B02'    ,   '당뇨병2차교육'       , '20000101', '99991231', 3, '"+biz_cd+"');");
+			System.err.println("INSERT INTO HYD.COM_BASIC_CODE (CODE_DIV, COM_CD, COM_NM,APP_SDATE, APP_EDATE, PRINT_SEQ, BIZ_CD) VALUES ('EDU_DIV', 'E00'    ,   '기타교육'           , '20000101', '99991231', 3, '"+biz_cd+"');");
+			
+			System.err.println("\n");
+		}
+		*/
+		
+		
+		
+		for(int i=1 ; i <=34 ; i++) {
+			System.err.println("<column id=\"a"+i+"\" 		ref=\"a"+i+"\" type=\"string\" />");
+		}
         
         
 	}

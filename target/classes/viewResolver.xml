@@ -19,6 +19,9 @@
 		 - 뷰 이름과 View 객체간의 매핑정보를 저장하기 위해 자원파일을 사용
 		5. XmlViewResolver
 		 - 뷰 이름과 View 객체간의 매핑정보를 저장하기 위해 XML파일을 사용
+		6. ThymeleafViewResolver
+		 - 뷰 이름과 View 객체간의 매핑정보를 저장하기 위해 XML파일을 사용
+		 
 		 
 		※ InternalResourceViewResolver는 항상 뷰이름에 매핑되는 뷰객체를 리턴한다 즉 null 이 없고 항상 값을 리턴한다.
 		  그러니까 InternalResourceViewResolver는 우선순위를 가장 나중에 두는게 좋다.
@@ -37,6 +40,7 @@
             	<ref bean="beanNameViewResolver"/>
             	<ref bean="xmlViewResolver"/>
                 <ref bean="internalResourceViewResolver"/>
+                <ref bean="thymeleafViewResolver"/>
             </list>
         </property>
         <property name="defaultViews">
@@ -61,7 +65,24 @@
 		<property name="prefix" value="/WEB-INF/view/internalResourceViewResolver/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
+	
+	<bean id="thymeleafViewResolver" class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+	  	<property name="characterEncoding" value="UTF-8"/>
+        <property name="viewNames" value="comment*"/>
+        <property name="order" value="2"/>
+	</bean>
 	<!-- View Resolver -->
+	
+	<bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+    </bean>
+    <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/templates/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
+        <property name="cacheable" value="false"/>
+    </bean>
 	
 	<!-- View -->
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">

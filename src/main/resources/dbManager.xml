@@ -47,19 +47,19 @@
 	</bean>
 	
 	<!-- JPA -->
-	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/>
+	<!-- <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect"/> -->
 	<!-- <bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.OpenJpaDialect"/> -->
 	
+	<!-- 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">  
-         <!-- LocalContainerEntityManagerFactoryBean으로 사용함으로써 persistence.xml에 설정을 일임한다. -->
-         <!--
+         LocalContainerEntityManagerFactoryBean으로 사용함으로써 persistence.xml에 설정을 일임한다.
+         
          	Jpa에 BasicDataSource는 지원하지 않는다.
          	<property name="dataSource" ref="dataSource" /> 
-         -->  
+          
          
          <property name="jpaVendorAdapter">  
              <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">  
-             <!-- <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter"> -->
                  <property name="showSql" value="true" />  
                  <property name="database" value="ORACLE" />  
              </bean>  
@@ -69,19 +69,19 @@
          <property name="jpaDialect" ref="jpaDialect"/>
          
          <property name="loadTimeWeaver">
-		 	<!--<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>-->
 		 	<bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"/>
 		 </property>
 		 
-    </bean>  
+    </bean>  --> 
     
+    <!-- <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
+         <property name="entityManagerFactory" ref="entityManagerFactory" />  
+    </bean> -->
+     
 	<!-- load-time-weaver 전역적으로 사용하려면  
 	<context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
 	-->
 	
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
-         <property name="entityManagerFactory" ref="entityManagerFactory" />  
-    </bean> 
      
     <!-- MyBatis 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

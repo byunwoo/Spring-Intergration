@@ -12,11 +12,11 @@
     	</properties>
 	</persistence-unit> -->
 	
-    <persistence-unit name="Spring-Jpa" transaction-type="RESOURCE_LOCAL"><!-- RESOURCE_LOCAL -->
+    <!-- <persistence-unit name="Spring-Jpa" transaction-type="RESOURCE_LOCAL">RESOURCE_LOCAL
     	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>springframework.vo.EmpVo</class>
         <class>springframework.vo.DeptVo</class>
-    	<!-- <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+    	<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>
             <property name="openjpa.ConnectionURL" value="jdbc:oracle:thin:@220.125.154.207:21521:CDC"/>
@@ -24,7 +24,7 @@
             <property name="openjpa.ConnectionUserName" value="scott"/>
 		    <property name="openjpa.ConnectionPassword" value="tiger"/>
 		    <property name="openjpa.Log" value="DefaultLevel=TRACE, Tool=INFO"/>
-        </properties> -->
+        </properties>
         <properties>
 			<property name="eclipselink.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
   			<property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@220.125.154.72:21521:CDC" />
@@ -33,10 +33,10 @@
   			<property name="eclipselink.logging.level" value="DEBUG"/>
   			<property name="eclipselink.target-database" value="Oracle"/>
   			
-  			<!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
-   			<property name="eclipselink.ddl-generation.output-mode" value="database" /> -->
+  			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+   			<property name="eclipselink.ddl-generation.output-mode" value="database" />
  		</properties>
         
-    </persistence-unit>
+    </persistence-unit> -->
     
 </persistence>

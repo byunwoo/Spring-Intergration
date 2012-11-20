@@ -13,6 +13,7 @@ public class EmpJpaService {
 	EmpJpaDao empJpaDao;
 
 	public EmpVo getEmp(EmpVo empVo){
+//		return empJpaDao.getEmp(empVo);
 		return empJpaDao.getEmp(empVo);
 	}
 }
