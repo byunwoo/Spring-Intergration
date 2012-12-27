@@ -22,7 +22,7 @@
 	<util:properties id="dbProp" location="classpath:properties/db.properties"/>
 	<!-- 이렇게 하면 자바에서도 프로퍼티에 한큐에 접근한다. 
 	ex) 
-		@Value("#{dbProp.jdbc.driver}")
+		@Value("#{dbProp['jdbc.driver']}")
 		private String driverClassName;
 		혹은
 		@Value("#{dbProp}")

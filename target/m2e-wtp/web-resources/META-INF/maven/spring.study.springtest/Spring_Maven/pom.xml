@@ -17,16 +17,13 @@
 			<url>http://mesir.googlecode.com/svn/trunk/mavenrepo</url> 
 		</repository>
 		
+   		<!-- 
    		<repository>
-   			<!-- 	
-   				몽고DB용 리파지토리
-   				현재 시간 2012-04-24 몽고DB의 보안이슈가 뜨거운 감자로 논의 중....
-   				흥미진진하다 
-   			 -->
 		    <id>spring-milestone</id>
 		    <name>Spring Maven MILESTONE Repository</name>
 		    <url>http://maven.springframework.org/milestone</url>
-		</repository>
+		</repository> 
+		-->
 		<!--
 		<repository> 하둡용 리파지토리 
 			<id>spring-snapshot</id>
@@ -99,6 +96,13 @@
 		        <!-- <excludes>
 		            <exclude>**/*WebTest.java</exclude>
 		        </excludes> -->
+		        <excludes>
+                    <exclude>none</exclude>
+                </excludes>
+                <includes>
+                	<!-- 이거 지정안하니가 디폴트로 @테스트 못 찾네... -->
+                    <include>**/test/ContextTestUnit.java</include>
+                </includes>
     		</configuration>
     		<executions>
 		        <execution>
@@ -206,16 +210,16 @@
     	<artifactId>javax.persistence</artifactId>
     	<version>2.0.0</version>
     </dependency>
-    <dependency>
+    <!-- <dependency>
     	<groupId>org.mongodb</groupId>
     	<artifactId>mongo-java-driver</artifactId>
     	<version>2.7.2</version>
-    </dependency>
+    </dependency> -->
     <dependency>
 		<groupId>org.springframework.data</groupId>
 		<artifactId>spring-data-mongodb</artifactId>
-		<version>1.0.0.RC1</version>
-	</dependency>
+		<version>1.0.3.RELEASE</version>
+	</dependency> 
 
     <dependency>
     	<groupId>org.springframework.social</groupId>
@@ -238,11 +242,6 @@
     	<version>1.0.2.RELEASE</version>
     </dependency>
 
-    <dependency>
-		<groupId>org.springframework.mobile</groupId>
-		<artifactId>spring-mobile-device</artifactId>
-		<version>1.0.0.M3</version>
-	</dependency> 
 	<!--
 	<dependency>
 		<groupId>org.springframework.amqp</groupId>
@@ -254,6 +253,13 @@
 		<artifactId>spring-data-hadoop</artifactId>
 		<version>1.0.0.BUILD-SNAPSHOT</version>
 	</dependency>  -->
+	
+	<!-- Spring Mobile -->
+	<dependency>
+		<groupId>org.springframework.mobile</groupId>
+		<artifactId>spring-mobile-device</artifactId>
+		<version>1.0.0.RELEASE</version>
+	</dependency>
 	
 	<!-- Spring Security -->
 	<dependency>
@@ -271,13 +277,13 @@
 	    <artifactId>spring-security-config</artifactId>
 	    <version>3.1.0.RELEASE</version>
 	</dependency>
-	<!-- Spring Security OAuth -->
+	<!-- Spring Security OAuth 
 	<dependency>
 		<groupId>org.springframework.security.oauth</groupId>
 		<artifactId>spring-security-oauth</artifactId>
 		<version>1.0.0.M4</version>
-	</dependency>
-
+	</dependency>-->
+	
 	<dependency>
 		<groupId>joda-time</groupId>
 		<artifactId>joda-time</artifactId>

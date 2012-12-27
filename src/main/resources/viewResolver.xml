@@ -40,7 +40,7 @@
             	<ref bean="beanNameViewResolver"/>
             	<ref bean="xmlViewResolver"/>
                 <ref bean="internalResourceViewResolver"/>
-                <ref bean="thymeleafViewResolver"/>
+                <!-- <ref bean="thymeleafViewResolver"/> -->
             </list>
         </property>
         <property name="defaultViews">
@@ -66,15 +66,15 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
-	<bean id="thymeleafViewResolver" class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
+	<!-- <bean id="thymeleafViewResolver" class="org.thymeleaf.spring3.view.ThymeleafViewResolver">
 		<property name="templateEngine" ref="templateEngine" />
 	  	<property name="characterEncoding" value="UTF-8"/>
         <property name="viewNames" value="comment*"/>
         <property name="order" value="2"/>
-	</bean>
+	</bean> -->
 	<!-- View Resolver -->
 	
-	<bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
+	<!-- <bean id="templateEngine" class="org.thymeleaf.spring3.SpringTemplateEngine">
         <property name="templateResolver" ref="templateResolver" />
     </bean>
     <bean id="templateResolver" class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
@@ -82,7 +82,7 @@
         <property name="suffix" value=".html" />
         <property name="templateMode" value="HTML5" />
         <property name="cacheable" value="false"/>
-    </bean>
+    </bean> -->
 	
 	<!-- View -->
 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJacksonJsonView">

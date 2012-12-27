@@ -102,6 +102,7 @@
 			<a href="/mongo">MongoDb Controller</a>
 		</li>
 		<li><a href="auth.jsp">인증결과</a></li>
+		<li><a href="/admin/admin.jsp">관리자</a></li>
 		<li><a href="/j_spring_security_logout">로그아웃</a></li>
 		
 		
