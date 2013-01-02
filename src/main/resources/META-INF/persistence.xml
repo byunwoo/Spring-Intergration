@@ -2,32 +2,32 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
     
 	<persistence-unit name="Spring-Jpa" transaction-type="RESOURCE_LOCAL">  
-	        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-	          
-	        <class>springframework.vo.EmpVo</class>
-        	<class>springframework.vo.DeptVo</class>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+          
+        <class>springframework.vo.EmpVo</class>
+       	<class>springframework.vo.DeptVo</class>
         		
-	        <properties>  
-	            <property name="eclipselink.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
-	  			<property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@cdsdev.iptime.org:31521:KCDCWIN" />
-				<property name="eclipselink.jdbc.user" value="scott" />
-	  			<property name="eclipselink.jdbc.password" value="tiger" />
-	  			<property name="eclipselink.logging.level" value="DEBUG"/>
-	  			<property name="eclipselink.target-database" value="Oracle"/>
-	  			
-	            <property name="eclipselink.weaving" value="false">  
-		            <property name="eclipselink.logging.level" value="FINE">  
-		            <!-- <property name="kodo.Log" value="DefaultLevel=WARN, Runtime=TRACE,   
-		                Tool=INFO, SQL=TRACE" /> -->  
-		        	</property>
-		        </property>
-		        
-	            <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
-   				<property name="eclipselink.ddl-generation.output-mode" value="database" />
+        <properties>  
+            <property name="eclipselink.jdbc.driver" value="oracle.jdbc.driver.OracleDriver" />
+  			<property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@cdsdev.iptime.org:31521:KCDCWIN" />
+			<property name="eclipselink.jdbc.user" value="scott" />
+  			<property name="eclipselink.jdbc.password" value="tiger" />
+  			<property name="eclipselink.logging.level" value="DEBUG"/>
+  			<property name="eclipselink.target-database" value="Oracle"/>
+  			
+            <property name="eclipselink.weaving" value="false">  
+	            <property name="eclipselink.logging.level" value="FINE">  
+	            <!-- <property name="spring-jpa.Log" value="DefaultLevel=WARN, Runtime=TRACE,   
+	                Tool=INFO, SQL=TRACE" /> -->  
+	        	</property>
+	        </property>
+	        
+            <!-- <property name="eclipselink.ddl-generation" value="drop-and-create-tables" /> 
+            <property name="eclipselink.ddl-generation" value="create-tables" /> -->
+			<property name="eclipselink.ddl-generation.output-mode" value="database" />
    			
-			</properties>  
-	    </persistence-unit>  
-	</persistence>
+		</properties>  
+    </persistence-unit>  
 	  
 	<!-- <persistence-unit name="em" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>

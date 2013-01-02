@@ -23,7 +23,7 @@ public class EmpVo implements Serializable {
 	private static final long serialVersionUID = 6943688991629167149L;
 
 	@Id
-	@Column(name="EMPNO", nullable=false, unique=true)
+	@Column(name="EMPNO")
 	private Integer empNo;
 	
 	@Column(name="ENAME", length=10)

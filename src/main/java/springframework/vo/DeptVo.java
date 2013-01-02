@@ -20,7 +20,7 @@ public class DeptVo implements Serializable {
 	private static final long serialVersionUID = -4027424349016391927L;
 
 	@Id
-	@Column(name="DEPTNO", nullable=false, unique=true)
+	@Column(name="DEPTNO")
 	private Integer deptNo;
 	
 	@Column(name="DNAME", length=14)
