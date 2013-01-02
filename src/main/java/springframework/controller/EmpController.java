@@ -60,8 +60,7 @@ public class EmpController {
 	public @ResponseBody EmpVo getEmp(@PathVariable Integer id) {
 		EmpVo vo = new EmpVo();
 		vo.setEmpNo(id);
-//		EmpVo e = empJpaService.getEmp(vo);
-		EmpVo e = new EmpVo();
+		EmpVo e = empJpaService.getEmp(vo);
 		return e;
 	}
 		
