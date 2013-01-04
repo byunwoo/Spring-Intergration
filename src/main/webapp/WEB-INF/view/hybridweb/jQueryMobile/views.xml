@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+	<bean name="jqueryMobile/sample" class="org.springframework.web.servlet.view.JstlView">
+	<!-- <bean name="jqueryMobile/sample" class="org.springframework.web.servlet.view.InternalResourceView"> -->
+		<property name="url"><value>/WEB-INF/view/hybridweb/jQueryMobile/jQueryMobile-html5-basic.html</value></property>
+		    
+		<property name="attributesMap">
+			<map>
+				<entry key="title"><value>jquery mobile .1</value></entry>
+			</map>
+		</property>
+	</bean>
+	
+</beans>
