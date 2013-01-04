@@ -1,7 +1,8 @@
-#Mon Jan 02 18:00:11 KST 2012
 eclipse.preferences.version=1
+encoding//src/main/resources/jetty/webdefault.xml=UTF-8
 encoding//src/main/webapp/WEB-INF/view/empView/list.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/empView/view.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/view/hybridweb/jQueryMobile/jQueryMobile-html5-basic.html=EUC-KR
 encoding//src/main/webapp/WEB-INF/view/internalResourceViewResolver/test.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/mongoView/view.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/view/xmlViewResolver/test.jsp=UTF-8

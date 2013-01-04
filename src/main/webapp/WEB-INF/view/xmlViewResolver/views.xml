@@ -4,6 +4,7 @@
 
 	<import resource="../empView/views.xml"/>
 	<import resource="../mongoView/views.xml"/>
+	<import resource="../hybridweb/jQueryMobile/views.xml"/>
 	
 	<bean name="simpleUrlHandlerMapping/test" class="org.springframework.web.servlet.view.JstlView">
 		<property name="url"><value>/WEB-INF/view/xmlViewResolver/test.jsp</value></property>

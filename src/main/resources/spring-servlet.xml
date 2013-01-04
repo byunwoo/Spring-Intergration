@@ -149,6 +149,7 @@
 		<property name="mappings">
 			<props>
 				<prop key="/simpleUrlHandlerMapping/*">simpleUrlHandlerClass</prop>
+				<prop key="/jqueryMobile/*">jqueryMobileController</prop>
 			</props>
 		</property>
 		<property name="order" value="1"/>

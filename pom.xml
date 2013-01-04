@@ -65,6 +65,14 @@
           	</connectors>
           <stopKey>foo</stopKey>
           <stopPort>9999</stopPort>
+          <!-- 
+	    	windows에서만 발생하는 문제가있는데 
+	    	정적리소스 예를들어 js, css 같은파일을 수정저장하려고 하면 파일구역이 열려있어 어쩌구저쩌구 에러가난다
+	    	아래 파일가서 153라인 참조
+	      -->
+          <webAppConfig>
+			<defaultsDescriptor>src/main/resources/jetty/webdefault.xml</defaultsDescriptor>
+          </webAppConfig>
         </configuration>
       </plugin>
 		 

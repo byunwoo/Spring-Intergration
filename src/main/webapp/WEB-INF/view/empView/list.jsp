@@ -16,7 +16,7 @@
 			${empList}
 		</li>
 		<li>
-			<a href="/index.jsp">처음</a>
+			<a href="/index">처음</a>
 		</li>
 	</ul>
 

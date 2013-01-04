@@ -15,7 +15,7 @@ public class TestController {
 	@Value("#{dbProp['jdbc.driver']}")
 	private String driverClassName;
 	
-	@RequestMapping
+	@RequestMapping("/index")
 	public ModelAndView index(){
 		
 		String sampleMessage = "this url is Root";

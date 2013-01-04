@@ -14,10 +14,12 @@
 		<!-- 
 			하단의 설정은 접속한 사용자가 모바일 기기일 경우 m.example.com 로 분기 시킨다
 			factory-method 에는 mDot(m.도메인.com)과 dotMobj(도메인.mobj)가 있다. 
-		-->
+		
+			일단 하이브리드웹 테스트를 로컬서 진행하기 위해 주석
 	    <bean class="org.springframework.mobile.device.switcher.SiteSwitcherHandlerInterceptor" factory-method="mDot">
 	        <constructor-arg value="example.com" />
 	    </bean>
+	    -->
 	</mvc:interceptors>
 	
 </beans>
