@@ -7,9 +7,45 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 </head>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".show-menu").click(function(){
+			$(".sliding-menu").toggleClass("reverse out in");
+		});
+	})
+</script>
 <body>
 	2013-01-04일자 기준
 	jQuery Mobile 최신버젼 1.2.0
 	그에따른 호환 jQuery 최신버젼 1.8.2
+	
+	<section id="page1" data-role="page">
+		<header data-role="header">
+			<h1>jQuery Mobile Start~</h1>
+		</header>
+		<div class="content">
+			<p>Fist Page Content</p>
+			<p><a href="#page2" data-rel="dialog" data-transition="flip">go to second</a></p>
+			<br>
+			<p class="show-menu">menu toggle</p>
+			<div class="sliding-menu slide out">Menu</div>
+		</div>
+		<footer data-role="footer">
+			<h1>footer~</h1>
+		</footer>
+	</section>
+	
+	<section id="page2" data-role="page" data-add-back-btn="true">
+		<header data-role="header">
+			<h1>jQuery Mobile Start~</h1>
+		</header>
+		<div class="content">
+			<p>Second Page Content</p>
+			<p><a href="#page1">go to first</a></p>
+		</div>
+		<footer data-role="footer">
+			<h1>footer~</h1>
+		</footer>
+	</section>
 </body>
 </html>
