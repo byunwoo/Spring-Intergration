@@ -6,7 +6,17 @@ public class Sample {
 	
 	public static void main(String[] args){
 		
-		System.err.println("20120608".substring(0,6));
+		try{
+			System.err.println("try");
+			throw new Exception();
+		}catch(Exception e){
+			System.err.println("catch");
+		}finally{
+			System.err.println("finally");
+		}
+		System.err.println("end");
+		
+//		System.err.println("20120608".substring(0,6));
 		
 //		String localorigin = "%5C20120712%5C20120712105738090000_%EC%83%88+%ED%85%8D%EC%8A%A4%ED%8A%B8+%EB%AC%B8%EC%84%9C.txt";
 //		String localreal = "%EC%83%88+%ED%85%8D%EC%8A%A4%ED%8A%B8+%EB%AC%B8%EC%84%9C.txt";
@@ -100,9 +110,9 @@ public class Sample {
 		
 		
 		
-		for(int i=1 ; i <=34 ; i++) {
-			System.err.println("<column id=\"a"+i+"\" 		ref=\"a"+i+"\" type=\"string\" />");
-		}
+//		for(int i=1 ; i <=34 ; i++) {
+//			System.err.println("<column id=\"a"+i+"\" 		ref=\"a"+i+"\" type=\"string\" />");
+//		}
         
         
 	}
