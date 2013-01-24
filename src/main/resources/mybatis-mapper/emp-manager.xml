@@ -6,6 +6,8 @@
 	<select id="getList" parameterType="EmpVo" resultType="EmpVo">
 		select *
 		from emp
+		where 1=1
+			<if test="empno = 1"> and 2=#{empno} </if>
 	</select>
 	
 </mapper>

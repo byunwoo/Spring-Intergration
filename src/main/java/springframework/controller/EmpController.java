@@ -2,6 +2,8 @@ package springframework.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,8 @@ import springframework.vo.EmpVo;
 @Controller
 public class EmpController {
 
+	Logger log = LoggerFactory.getLogger(EmpController.class); 
+	
 	@Autowired
 	EmpService empService;
 	@Autowired
@@ -27,9 +31,11 @@ public class EmpController {
 		ModelAndView mv = new ModelAndView();
 		
 		List list = null;
-		list = empService.getList(new EmpVo());
+		EmpVo paramVo = new EmpVo();
+		paramVo.setEmpNo(1);
+		list = empService.getList(paramVo);
 		mv.addObject("empList", list);
-		
+		log.info("emp list ====================== {}", list.size());
 		String sampleMessage = "EMP List Return~";
 		mv.addObject("sampleMessage", sampleMessage);
 		
@@ -39,7 +45,7 @@ public class EmpController {
 	@RequestMapping(value="/getEmp/{emp_no}")
 	public ModelAndView getEmp(@PathVariable int emp_no){
 		ModelAndView mv = new ModelAndView();
-		
+		log.info("emp no ====================== {}", emp_no);
 		EmpVo empVo = new EmpVo();
 		empVo.setEmpNo(emp_no);
 		
@@ -58,6 +64,7 @@ public class EmpController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/empJson/{id}", headers="Accept=application/json")
 	public @ResponseBody EmpVo getEmp(@PathVariable Integer id) {
+		
 		EmpVo vo = new EmpVo();
 		vo.setEmpNo(id);
 		EmpVo e = empJpaService.getEmp(vo);

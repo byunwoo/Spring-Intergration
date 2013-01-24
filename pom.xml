@@ -353,18 +353,36 @@
 		<version>2.0.8</version>
 	</dependency>
 	
-	<!-- slf4j -->
+	<!-- slf4j --> 
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-api</artifactId>
 		<version>1.6.6</version>
 	</dependency>
-	<dependency>
+	<!-- <dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-log4j12</artifactId>
 		<version>1.6.6</version>
+	</dependency> -->
+	
+	
+	<!-- logback -->
+	<dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-core</artifactId>
+		<version>1.0.6</version>
 	</dependency>
-
+	<dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-classic</artifactId>
+		<version>1.0.6</version>
+	</dependency>
+	<dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-access</artifactId>
+		<version>1.0.6</version>
+	</dependency>
+	
   </dependencies>
   
 </project>
