@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<!-- 
+	milliseconds, seconds, minutes, hours가 있고 단위를 생략하는 경우 경우 디폴트 단위는 milliseconds가 적용
+	주의할 점은 Logback은 로그 수행요청이 있을 경우에 설정파일에 명시한 시간간격을 체크 하여 설정파일을 reload 하므로
+	, 로그 요청이 수행되어야 하고 로그가 호출되는 약간의 시간을 추가로 필요로 한다는 점 
+-->
+<configuration scan="true" scanPeriod="30">
  
 <!--     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
@@ -9,47 +14,102 @@
     <jmxConfigurator />
  	-->
  	
+ 	<!-- 
+ 		<encoder>
+            <pattern>%d %-5level [%thread] %logger: %msg%n</pattern>
+        </encoder> 
+        
+ 		%d로 현재 일시
+ 		, %-5level 로그이벤트 요청시 레벨을 5글자 넓이로
+ 		, %thread는 현재 쓰레드의 이름
+ 		, %logger는 사용된 Logger의 풀네임과 로그 요청시 사용된 메시지를 출력하는 패턴을 지정 
+	-->
+ 	
+ 	<!-- 콘솔어펜더 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%.-1level|%-40.40logger{0}|%msg%n</pattern>
         </encoder>
     </appender>
+    
+    <!-- 파일어펜더 -->
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <append>true</append><!-- 기존에 존재하는 파일에 로그를 남길때 해당 파일에 추가하여 로그를 남길지 여부를 설정하는 속성 -->
+        <file>testFile.log</file><!-- 로그를 출력할 파일명을 설정할 수 있는 속성. 해당 경로에 파일이 존재하지 않을 경우 해당 파일 생성 -->
+        <prudent>false</prudent><!-- 다수의 JVM에 하나의 파일에 로그를 안전하게 남길수 있도록 동기화를 할지 여부를 결정하는 속성 -->
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
  
+    <!-- 
+    	롤링파일 어펜더
+    	 - 사용자의 설정에따라 로그파일을 변경하여 로그정보를 기록한다. 기본적으로 FileAppender의 모든 속성을 가지고 있다 
+    -->
+    <appender name="dailyRolling" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>currentLog.log</file>
+        
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+             <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+             <maxHistory>30</maxHistory><!-- 최대 30개의 로그파일만 남기고 그전의 파일은 자동 삭제 처리 -->
+        </rollingPolicy> 
+    	
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- 
+    	Logger Level Class : ch.qos.logback.classic.Level
+    	name	해당 Logger의 고유한 식별자(패키지 혹은 클래스). Root Logger는 이름을 별도로 설정하지 않는다.	String	N/A
+		level	해당 Logger에 대한 로그 요청을 출력할지 여부를 결정하는 기준속성. 레벨은 TRACE<DEBUG<INFO<WARN<ERROR 이고 OFF로 설정하는 경우 모든 로그요청은 처리되지 않는다
+		additivity	해당 Logger의 상위 Logger에게 로그 이벤트를 전달할지 여부를 결정하는 속성
+    -->
     <!-- 3rdparty Loggers -->
-    <logger name="org.springframework.core">
-        <level value="info" />
+    <logger name="org.springframework.core" level="ERROR" additivity="false">
+		<appender-ref ref="console" />
+        <!-- <appender-ref ref="file" /> -->
     </logger>
 
-    <logger name="org.springframework.beans">
-        <level value="info" />
+    <logger name="org.springframework.beans" level="ERROR" additivity="false">
+        <appender-ref ref="console" />
     </logger>
     
-    <logger name="org.springframework.context">
-        <level value="info" />
+    <logger name="org.springframework.context" level="ERROR" additivity="false">
+        <appender-ref ref="console" />
     </logger>
 
-    <logger name="org.springframework.web">
-        <level value="info" />
+    <logger name="org.springframework.web" level="ERROR" additivity="false">
+        <appender-ref ref="console" />
     </logger>
  
-	<logger name="java.sql">
-        <level value="debug"/>
+    
+	<logger name="java.sql" level="DEBUG" additivity="false">
+	    <appender-ref ref="console" />
     </logger>
     
-    <logger name="jdbc.sqlonly">
-        <level value="debug"/>
+	<!-- <logger name="java.sql.Connection" level="DEBUG" additivity="false">
+	    <appender-ref ref="console" />
     </logger>
-    <logger name="jdbc.sqltiming">
-        <level value="debug"/>
+	<logger name="java.sql.PreparedStatement" level="DEBUG" additivity="false">
+	    <appender-ref ref="console" />
+    </logger> -->
+    
+	
+    <logger name="jdbc.sqlonly" level="ERROR" additivity="false">
+        <appender-ref ref="console" />
     </logger>
-    <logger name="jdbc.audit">
-        <level value="error"/>
+    <logger name="jdbc.sqltiming" level="DEBUG" additivity="false">
+        <appender-ref ref="console" />
     </logger>
-    <logger name="jdbc.resultset">
-        <level value="error"/>
+    <logger name="jdbc.audit" level="ERROR" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="jdbc.resultsettable" level="DEBUG" additivity="false">
+        <appender-ref ref="console" />
     </logger>
     
-    <root level="info">
+    <root level="WARN">
         <appender-ref ref="console" />
     </root>
     
