@@ -382,6 +382,13 @@
 		<artifactId>logback-access</artifactId>
 		<version>1.0.6</version>
 	</dependency>
+
+	<!-- log4jdbc -->
+	<dependency>
+		<groupId>org.lazyluke</groupId>
+		<artifactId>log4jdbc-remix</artifactId>
+		<version>0.2.7</version>
+	</dependency>
 	
   </dependencies>
   
