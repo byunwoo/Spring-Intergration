@@ -17,6 +17,7 @@ import springframework.service.EmpService;
 import springframework.vo.EmpVo;
 
 @Controller
+//@RequestMapping("/Emp") 컨트롤러 대표 루트경로를 주고 싶으면 이렇게
 public class EmpController {
 
 	Logger log = LoggerFactory.getLogger(EmpController.class); 
