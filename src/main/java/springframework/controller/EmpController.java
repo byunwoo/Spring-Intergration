@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,11 @@ public class EmpController {
 	EmpService empService;
 	@Autowired
 	EmpJpaService empJpaService;
+	
+	@ModelAttribute("commonStringArr")
+	public String[] commmonStringArr(){
+		return new String[]{"common1","common2","common3","common4","common5"};
+	}
 	
 	@RequestMapping("/empList")
 	public ModelAndView list(){

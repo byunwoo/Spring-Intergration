@@ -33,6 +33,12 @@
 			<td>${emp.job }</td>
 		</tr>
 		</c:forEach>
+		<tr>
+			commonStringArr(@ModelAttribute) : 
+			<c:forEach items="${commonStringArr}" var="commonStringArr">
+				${commonStringArr}
+			</c:forEach>
+		</tr>
 	</table>
 	
 </body>

@@ -4,8 +4,9 @@
 	주의할 점은 Logback은 로그 수행요청이 있을 경우에 설정파일에 명시한 시간간격을 체크 하여 설정파일을 reload 하므로
 	, 로그 요청이 수행되어야 하고 로그가 호출되는 약간의 시간을 추가로 필요로 한다는 점 
 -->
-<configuration scan="true" scanPeriod="30">
- 
+<configuration scan="true" scanPeriod="5 seconds" debug="true">
+	<statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
+	
 <!--     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
     </contextListener>
@@ -41,7 +42,7 @@
             <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
         </encoder>
     </appender>
- 
+
     <!-- 
     	롤링파일 어펜더
     	 - 사용자의 설정에따라 로그파일을 변경하여 로그정보를 기록한다. 기본적으로 FileAppender의 모든 속성을 가지고 있다 
@@ -83,33 +84,39 @@
         <appender-ref ref="console" />
     </logger>
  
-    
+    <!--
 	<logger name="java.sql" level="DEBUG" additivity="false">
 	    <appender-ref ref="console" />
     </logger>
-    
-	<!-- <logger name="java.sql.Connection" level="DEBUG" additivity="false">
+	<logger name="java.sql.Connection" level="DEBUG" additivity="false">
 	    <appender-ref ref="console" />
     </logger>
 	<logger name="java.sql.PreparedStatement" level="DEBUG" additivity="false">
 	    <appender-ref ref="console" />
     </logger> -->
-    
 	
-    <logger name="jdbc.sqlonly" level="ERROR" additivity="false">
+	<logger name="emp" level="debug" additivity="false">
         <appender-ref ref="console" />
     </logger>
-    <logger name="jdbc.sqltiming" level="DEBUG" additivity="false">
+	 <!--
+	<logger name="org.apache.ibatis.logging.jdbc.PreparedStatementLogger" level="debug" additivity="false">
+        <appender-ref ref="console" />
+    </logger>-->
+	
+    <logger name="jdbc.sqlonly" level="debug" additivity="false">
         <appender-ref ref="console" />
     </logger>
-    <logger name="jdbc.audit" level="ERROR" additivity="false">
+    <logger name="jdbc.sqltiming" level="error" additivity="false">
         <appender-ref ref="console" />
     </logger>
-    <logger name="jdbc.resultsettable" level="DEBUG" additivity="false">
+    <logger name="jdbc.audit" level="error" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+    <logger name="jdbc.resultsettable" level="error" additivity="false">
         <appender-ref ref="console" />
     </logger>
     
-    <root level="WARN">
+    <root level="warn">
         <appender-ref ref="console" />
     </root>
     

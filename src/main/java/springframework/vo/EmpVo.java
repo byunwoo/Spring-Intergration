@@ -49,7 +49,7 @@ public class EmpVo implements Serializable {
 	@Column(name="DEPTNO")
 	private Integer deptNo;
 	
-	@ManyToOne(optional=true)
+	@ManyToOne
 //	cascade=CascadeType.REFRESH
 	@JoinColumn(name="DEPTNO", updatable=false, insertable=false)
 //	updatable=false, insertable=false 이것을 명시해 줘야한다.

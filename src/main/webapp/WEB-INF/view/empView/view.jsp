@@ -60,6 +60,12 @@
 			</table>
 		</li>
 		<li>
+			commonStringArr(@ModelAttribute) : 
+			<c:forEach items="${commonStringArr}" var="commonStringArr">
+				${commonStringArr}
+			</c:forEach>
+		</li>
+		<li>
 			<a href="/index.jsp">처음</a>
 			<a href="/empList">목록</a>
 		</li>

@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="emp">
+<mapper namespace="emp" xmlns:fo="emp">
 
 	<select id="getList" parameterType="EmpVo" resultType="EmpVo">
-		select *
+		select 
+			EMPNO 
+			, COMM 
+			, DEPTNO 
+			, ENAME 
+			, HIREDATE   
+			, JOB 
+			, MGR 
+			, SAL 
 		from emp
 		where 1=1
-			<if test="empno = 1"> and 2=#{empno} </if>
+			<if test="empno = 1"> and 1=#{empno} </if>
+		union 
+		select 
+			EMPNO 
+			, COMM 
+			, DEPTNO 
+			, ENAME 
+			, HIREDATE   
+			, JOB 
+			, MGR 
+			, SAL 
+		from emp
+		where 1=1		
 	</select>
 	
 </mapper>

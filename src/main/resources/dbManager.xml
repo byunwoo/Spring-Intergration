@@ -14,8 +14,8 @@
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="${jdbc.datasource}"/>
 	    <property name="resourceRef" value="true" />
-	</bean>
-	-->
+	</bean>--> 
+	
 	
 	<context:property-placeholder location="classpath:properties/db.properties"/>
 	
@@ -52,6 +52,13 @@
 	-->
 	<bean id="dataSourceByUtil-properties" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
 		<constructor-arg ref="dataSourceSpied" />
+		<property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <property name="loggingType" value="MULTI_LINE" />
+                <property name="margin" value="1" />
+                <property name="sqlPrefix" value="QUERY = " />
+            </bean>
+        </property>
 	</bean>
 	  
 	<!-- JPA -->
@@ -100,7 +107,6 @@
     <bean id="sqlSessionFactory" class="springframework.RefreshableSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSourceByUtil-properties" />
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
-		<property name="mapperLocations" value="classpath:mybatis-mapper/emp-manager.xml"/>
 		<property name="interval" value="1000"/>
 	</bean>
     
