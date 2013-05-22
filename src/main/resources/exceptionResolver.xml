@@ -8,7 +8,7 @@
 	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 	    <property name="exceptionMappings">
 	        <props>
-	            <prop key="springframework.controller.TestController">TestControllerException</prop>
+	            <prop key="springframework.exception.CommonException">error/common.jsp</prop>
 	         </props>
 	    </property>
 	    <property name="exceptionAttribute" value="sampleException" />

@@ -30,21 +30,21 @@ public class MongoController {
 		
 		MongoOperations mongoOperation = mongoTemplate;
 		 
-//		mongoOperation.remove(new Query(Criteria.where("").all()),"mongoTest");
+//		mongoOperation.remove(new Query(Criteria.where("").all()),"mongoCollection");
 		//비우고 다시..
-		mongoOperation.dropCollection("mongoTest");
+		mongoOperation.dropCollection("mongoCollection");
 		
         //save
 		for(int i=0;i<20;i++) {
 			UserVo user = new UserVo("1"+i, "a"+i, "b c"+i, i*i);
-			mongoOperation.save(user, "mongoTest");
+			mongoOperation.save(user, "mongoCollection");
 		}
  
         //find
         UserVo savedUser = mongoOperation.findOne(
         		new Query(Criteria.where("id").is("10"))
 				, UserVo.class
-				, "mongoTest");
+				, "mongoCollection");
  
         System.out.println("The data that id is 10 : " + savedUser);
  
@@ -52,13 +52,13 @@ public class MongoController {
         mongoOperation.updateFirst(
         		new Query(Criteria.where("firstname").is("a17"))
         		, Update.update("lastname", "new lastname")
-        		, "mongoTest");
+        		, "mongoCollection");
  
         //find
         UserVo updatedUser = mongoOperation.findOne(
         		new Query(Criteria.where("id").is("10"))
 				, UserVo.class
-				, "mongoTest");
+				, "mongoCollection");
  
         System.out.println("The update data that firstname is a17 : " + updatedUser);
  
@@ -68,7 +68,7 @@ public class MongoController {
         		, UserVo.class);
  
         //List
-        DBCollection listUser = mongoOperation.getCollection("mongoTest");
+        DBCollection listUser = mongoOperation.getCollection("mongoCollection");
         System.out.println("Number of user = " + listUser.count());
 
         mv.setViewName("mongoTest");

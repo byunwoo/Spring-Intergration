@@ -70,8 +70,6 @@
      	Jpa에 BasicDataSource는 지원하지 않는다.
     --> 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">  
-		<!-- <property name="dataSource" ref="dataSourceByUtil-properties" /> --> 
-         
         <property name="jpaVendorAdapter">  
             <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter">  
                 <property name="showSql" value="true" />  
@@ -80,13 +78,6 @@
         </property>  
         <property name="persistenceUnitName" value="Spring-Jpa" />
         <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"/>
-         
-        <!-- <property name="jpaDialect" ref="jpaDialect"/> -->
-         
-        <!-- <property name="loadTimeWeaver">
-			<bean class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"/>
-		</property> -->
-		 
     </bean>  
     
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">  
@@ -121,12 +112,12 @@
 	 	막기 위해 설치후 db.auth 허가된 사용자만 등록하고 계정을 사용해서 접근토록해야 보안.. 당연히
 	-->
 	<bean id="mongoUserCridential" class="org.springframework.data.authentication.UserCredentials">
-	 	<constructor-arg name="username" value="mongoTester"/>
-	 	<constructor-arg name="password" value="1234"/>
+	 	<constructor-arg name="username" value="mongo"/>
+	 	<constructor-arg name="password" value="mongo"/>
 	</bean>
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongo" />
-		<constructor-arg name="databaseName" value="mongoTest" />
+		<constructor-arg name="databaseName" value="mongo" />
 		<constructor-arg name="userCredentials" ref="mongoUserCridential" />
 	</bean>	
 	 

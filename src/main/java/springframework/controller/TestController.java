@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import springframework.exception.CommonException;
+
 @Controller
 public class TestController {
 
@@ -26,6 +28,7 @@ public class TestController {
 	
 	@RequestMapping("/test")
 	public ModelAndView test(HttpServletRequest request){
+		
 		String sampleMessage = "DefaultAnnotationHandlerMapping 이용";
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("sampleMessage", sampleMessage);
@@ -33,6 +36,17 @@ public class TestController {
 		
 		Device currentDevice = DeviceUtils.getCurrentDevice(request);
 		mv.addObject("isMobile", currentDevice.isMobile());
+		
+		if(true){
+			try {
+				throw new CommonException();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		return mv;
+		
 	}
 }

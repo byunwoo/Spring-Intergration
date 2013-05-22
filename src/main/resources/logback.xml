@@ -60,6 +60,18 @@
         </encoder>
     </appender>
     
+    <!-- <property file="src/test/resources/logback-db.properties" />     
+    <appender name="dataSourceDB" class="ch.qos.logback.classic.db.DBAppender">
+		<connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+		    <dataSource class="org.apache.commons.dbcp.BasicDataSource"> 
+		        <driverClassName>${driver}</driverClassName>
+		        <url>${url}</url>
+		        <username>${username}</username>
+		        <password>${password}</password>
+		    </dataSource>
+		</connectionSource>
+    </appender> -->
+    
     <!-- 
     	Logger Level Class : ch.qos.logback.classic.Level
     	name	해당 Logger의 고유한 식별자(패키지 혹은 클래스). Root Logger는 이름을 별도로 설정하지 않는다.	String	N/A
